@@ -1,0 +1,16 @@
+- name: Install icecast2
+  apt:
+    name: icecast2
+    state: latest
+
+- name: Configure icecast2
+  template: src=icecast.xml.j2 dest=/etc/icecast2/icecast.xml
+
+- name: Activate icecast2 in /etc/default/icecast2
+  lineinfile:
+    name: /etc/default/icecast2
+    regexp: '^ENABLE='
+    line: 'ENABLE=true'
+
+- name: Restart icecast2 service
+  systemd: name=icecast2 state=restarted enabled=yes
