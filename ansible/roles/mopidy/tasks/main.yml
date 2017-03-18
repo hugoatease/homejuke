@@ -1,0 +1,25 @@
+- name: Add Mopidy's GPG key
+  apt_key:
+    url: https://apt.mopidy.com/mopidy.gpg
+    state: present
+
+- name: Add Mopidy's APT repository
+  apt_repository:
+    repo: deb http://apt.mopidy.com/ jessie main contrib non-free
+    state: present
+    update_cache: yes
+
+- name: Install mopidy and mopidy-spotify
+  apt: name={{ item }} state=latest
+  with_items:
+    - mopidy
+    - mopidy-spotify
+
+- name: Install IRIS Mopidy frontend
+  pip: name=Mopidy-Iris state=latest
+
+- name: Write Mopidy configuration
+  template: src=mopidy.conf.j2 dest=/etc/mopidy/mopidy.conf
+
+- name: Enable Mopidy service
+  systemd: name=mopidy state=restarted enabled=yes

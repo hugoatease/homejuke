@@ -1,0 +1,11 @@
+- name: Install darkice package
+  apt: name=darkice state=latest
+
+- name: Write darkice configuration
+  template: src=darkice.cfg.j2 dest=/etc/darkice.cfg
+
+- name: Write darkice service unit
+  copy: src=darkice.service dest=/etc/systemd/system/darkice.service
+
+- name: Enable darkice service
+  systemd: name=darkice state=restarted enabled=yes daemon_reload=yes

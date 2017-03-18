@@ -1,0 +1,11 @@
+[Unit]
+Description=Darkice streamer
+After=icecast2.service
+
+[Service]
+Type=simple
+RemainAfterExit=no
+ExecStart=/usr/bin/darkice -c /etc/darkice.cfg
+
+[Install]
+WantedBy=multi-user.target

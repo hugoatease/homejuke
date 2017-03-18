@@ -12,5 +12,5 @@
     regexp: '^ENABLE='
     line: 'ENABLE=true'
 
-- name: Restart icecast2 service
+- name: Enable icecast2 service
   systemd: name=icecast2 state=restarted enabled=yes
