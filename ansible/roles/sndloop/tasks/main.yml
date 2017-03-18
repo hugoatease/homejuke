@@ -1,0 +1,5 @@
+- name: Enable snd-aloop module
+  modprobe: name=snd-aloop state=present
+
+- name: Persist snd-aloop module on boot
+  copy: content="snd-aloop" dest=/etc/modules-load.d/snd-aloop.conf
